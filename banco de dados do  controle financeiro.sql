@@ -1,5 +1,5 @@
 show databases;
-use finance_db;
+use finance_app;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
