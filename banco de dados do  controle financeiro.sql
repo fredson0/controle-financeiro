@@ -27,7 +27,7 @@ CREATE TABLE transactions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
-USE finance_db;
+USE finance_app;
 show tables;
 DESC users;
 
