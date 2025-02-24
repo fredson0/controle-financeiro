@@ -9,13 +9,14 @@ const PORT = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Rota de teste
 app.get('/', (req, res) => {
     res.send('API está rodando!');
 });
 
-// Usar as rotas de usuários
 app.use('/users', userRoutes);
+
+const transactionsRoutes = require('./routes/transactions');
+app.use(transactionsRoutes);
 
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
