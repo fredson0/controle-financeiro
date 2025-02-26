@@ -3,7 +3,6 @@ const db = require('../config/db');
 
 const router = express.Router();
 
-// 📌 Função para validar transação antes de inserir no banco
 const validateTransaction = (description, amount, type, date) => {
     if (!description || !amount || !type || !date) {
         return 'Todos os campos são obrigatórios!';
@@ -14,7 +13,6 @@ const validateTransaction = (description, amount, type, date) => {
     return null;
 };
 
-// 📌 Adicionar uma nova transação
 const addTransaction = (req, res) => {
     console.debug("📩 Requisição recebida em /transactions");
     console.debug("📦 Dados recebidos:", req.body);
@@ -38,7 +36,6 @@ const addTransaction = (req, res) => {
     });
 };
 
-// 📌 Buscar transação por ID
 const getTransactionById = (req, res) => {
     const { id } = req.params;
     console.debug(`🔍 Buscando transação com ID: ${id}`);
@@ -58,7 +55,6 @@ const getTransactionById = (req, res) => {
     });
 };
 
-// 🛠 Definição das rotas
 router.post('/', addTransaction);
 router.get('/:id', getTransactionById);
 
