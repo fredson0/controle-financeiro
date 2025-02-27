@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'finance_app',  // Definindo o banco de dados diretamente aqui
+  database: 'finance_app',  
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -19,7 +19,6 @@ pool.query('CREATE DATABASE IF NOT EXISTS finance_app', (err) => {
   }
   console.log('✅ Banco de dados "finance_app" pronto!');
 
-  // Criar a tabela "users"
   const createUsersTableQuery = `
     CREATE TABLE IF NOT EXISTS users (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,7 +35,6 @@ pool.query('CREATE DATABASE IF NOT EXISTS finance_app', (err) => {
     }
   });
 
-  // Criar a tabela "transactions"
   const createTransactionsTableQuery = `
     CREATE TABLE IF NOT EXISTS transactions (
       id INT AUTO_INCREMENT PRIMARY KEY,
