@@ -10,6 +10,9 @@ const validateTransaction = (description, amount, type, date) => {
     if (isNaN(amount) || amount <= 0) {
         return 'O valor da transação deve ser um número positivo!';
     }
+    if (typeof type !== 'string' || (type !== 'income' && type !== 'expense')) {
+        return 'O tipo de transação deve ser "income" ou "expense"!';
+    }
     return null;
 };
 
@@ -26,7 +29,7 @@ const addTransaction = (req, res) => {
     }
 
     const query = 'INSERT INTO transactions (description, amount, type, date) VALUES (?, ?, ?, ?)';
-    db.query(query, [description, amount, type, date], (err, result) => {
+    db.query(query, [description.trim(), amount, type.trim(), date], (err, result) => {
         if (err) {
             console.error('❌ Erro ao adicionar transação:', err);
             return res.status(500).json({ error: 'Erro interno ao adicionar transação.' });
@@ -55,7 +58,28 @@ const getTransactionById = (req, res) => {
     });
 };
 
+const getTransactionsByPeriod = (req, res) => {
+    const { startDate, endDate } = req.query;
+
+    if (!startDate || !endDate) {
+        return res.status(400).json({ error: 'Os parâmetros startDate e endDate são obrigatórios!' });
+    }
+
+    console.debug(`📅 Buscando transações de ${startDate} até ${endDate}`);
+
+    const query = 'SELECT * FROM transactions WHERE date BETWEEN ? AND ? ORDER BY date DESC';
+    db.query(query, [startDate, endDate], (err, results) => {
+        if (err) {
+            console.error('❌ Erro ao buscar transações:', err);
+            return res.status(500).json({ error: 'Erro interno ao buscar transações.' });
+        }
+        console.log(`✅ ${results.length} transações encontradas.`);
+        res.json(results);
+    });
+};
+
 router.post('/', addTransaction);
 router.get('/:id', getTransactionById);
+router.get('/', getTransactionsByPeriod); 
 
 module.exports = router;
