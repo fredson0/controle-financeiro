@@ -1,20 +1,27 @@
 # Usa a imagem oficial do Node.js como base
 FROM node:18
 
+# Instala o netcat para o script de espera
+RUN apt-get update && apt-get install -y netcat-openbsd
+
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia o package.json e package-lock.json antes de instalar as dependências
+# Copia apenas os arquivos package.json e package-lock.json para instalar as dependências
 COPY package*.json ./
 
-# Instala as dependências do projeto
+# Instala as dependências no ambiente Linux do container
 RUN npm install
 
 # Copia o restante do código da aplicação para dentro do container
 COPY . .
 
-# Expõe a porta usada pelo servidor (ajuste se necessário)
+# Copia o script de espera para o container
+COPY wait-for-db.sh /wait-for-db.sh
+RUN chmod +x /wait-for-db.sh
+
+# Expõe a porta usada pelo servidor
 EXPOSE 3001
 
-# Comando para iniciar a aplicação
-CMD ["npm", "start"]
+# Comando para iniciar a aplicação com o script de espera
+CMD ["/wait-for-db.sh", "npm", "start"]
