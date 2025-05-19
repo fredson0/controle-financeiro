@@ -1,0 +1,99 @@
+body.bg-dark {
+    background-color: #121212; /* Fundo escuro */
+    color: #ffffff; /* Texto branco */
+}
+
+body.bg-light {
+    background-color: #f8f9fa; /* Fundo claro */
+    color: #212529; /* Texto escuro */
+}
+
+.app-container {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Estilo para o formulário de transações */
+.transaction-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    gap: 1rem; /* Espaçamento entre os campos */
+    max-width: 800px;
+    margin: 0 auto; /* Centraliza o formulário */
+}
+
+.transaction-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-form .form-control {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+
+.transaction-form button {
+    grid-column: span 2; /* Botão ocupa duas colunas */
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.transaction-form button:hover {
+    background-color: #218838;
+}
+
+/* Estilo para o Resumo Financeiro */
+.summary-container {
+    background-color: #333; /* Fundo escuro */
+    color: #fff; /* Texto branco */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 20px; /* Espaçamento interno */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-bottom: 20px; /* Espaçamento inferior */
+}
+
+.summary-container h2 {
+    color: #4caf50; /* Cor do título */
+    margin-bottom: 15px; /* Espaçamento inferior do título */
+}
+
+.summary-container p {
+    margin: 10px 0; /* Espaçamento entre os parágrafos */
+    font-size: 1.2rem; /* Tamanho maior para os textos */
+}
+
+.summary-container .text-success {
+    color: #4caf50; /* Cor para valores positivos */
+}
+
+.summary-container .text-danger {
+    color: #f44336; /* Cor para valores negativos */
+}
+
+/* Estilo para o gráfico de categorias */
+.category-report {
+    margin: 20px auto;
+    text-align: center;
+    background-color: #333; /* Fundo escuro */
+    color: #fff; /* Texto branco */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.category-report h3 {
+    color: #4caf50; /* Cor do título do gráfico */
+    margin-bottom: 15px;
+}
+
+.category-report .recharts-wrapper {
+    margin: 0 auto; /* Centraliza o gráfico */
+}

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend-container
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80" # Porta para acessar o frontend
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    restart: always
+
+  backend:
+    container_name: backend-container
+    build:
+      context: ./backend
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=finance_app
+      - DB_PORT=3306
+      - SECRET_KEY=sophia2907
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules # Evita conflitos entre node_modules do host e do container
+    restart: always
+    command: sh -c "/wait-for-db.sh && npm start" # Aguarda o banco de dados antes de iniciar o backend
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: finance_app
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  db_data:
